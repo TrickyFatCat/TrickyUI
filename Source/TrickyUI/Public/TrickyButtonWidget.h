@@ -21,7 +21,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnButtonUnhoveredDynamicSignature, 
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class TRICKYUI_API UTrickyButtonWidget : public UTrickyUserWidget
 {
 	GENERATED_BODY()
