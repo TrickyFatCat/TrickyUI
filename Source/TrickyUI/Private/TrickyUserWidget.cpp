@@ -93,7 +93,7 @@ float UTrickyUserWidget::CalculateAnimationStartTime(const UWidgetAnimation* Ani
 
 void UTrickyUserWidget::PrintLog(const FString& Message) const
 {
-	const FString WidgetName = GetDisplayLabel();
+	const FString WidgetName = GetName();
 	const FString LogMessage = FString::Printf(TEXT("Widget: %s | %s"), *WidgetName, *Message);
 	UE_LOG(LogTrickyUserWidget, Display, TEXT("%s"), *LogMessage);
 }
