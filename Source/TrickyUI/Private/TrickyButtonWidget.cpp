@@ -22,24 +22,44 @@ void UTrickyButtonWidget::NativeOnInitialized()
 void UTrickyButtonWidget::HandleButtonClicked()
 {
 	OnButtonClicked.Broadcast(this);
+
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+	PrintLog("Button Clicked");
+#endif
 }
 
 void UTrickyButtonWidget::HandleButtonPressed()
 {
 	OnButtonPressed.Broadcast(this);
+	
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+	PrintLog("Button Pressed");
+#endif
 }
 
 void UTrickyButtonWidget::HandleButtonReleased()
 {
 	OnButtonReleased.Broadcast(this);
+	
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+	PrintLog("Button Released");
+#endif
 }
 
 void UTrickyButtonWidget::HandleButtonHovered()
 {
 	OnButtonHovered.Broadcast(this);
+	
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+	PrintLog("Button Hovered");
+#endif
 }
 
 void UTrickyButtonWidget::HandleButtonUnhovered()
 {
 	OnButtonUnhovered.Broadcast(this);
+	
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+	PrintLog("Button Unhovered");
+#endif
 }
