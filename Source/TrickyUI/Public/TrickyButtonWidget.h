@@ -19,7 +19,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnButtonHoveredDynamicSignature, UT
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnButtonUnhoveredDynamicSignature, UTrickyButtonWidget*, Button);
 
 /**
- * 
+ * An abstract user widget class that represents a customizable button with robust interaction event handling and dynamic signals.
  */
 UCLASS(Abstract)
 class TRICKYUI_API UTrickyButtonWidget : public UTrickyUserWidget
@@ -29,18 +29,33 @@ class TRICKYUI_API UTrickyButtonWidget : public UTrickyUserWidget
 public:
 	virtual void NativeOnInitialized() override;
 
+	/**
+	 * Triggered when the button is clicked.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FOnButtonClickedDynamicSignature OnButtonClicked;
 
+	/**
+	 * Triggered when the button is pressed.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FOnButtonPressedDynamicSignature OnButtonPressed;
 
+	/**
+	 * Triggered when the button is released.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FOnButtonReleasedDynamicSignature OnButtonReleased;
 
+	/**
+	 * Triggered when the button is hovered.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FOnButtonHoveredDynamicSignature OnButtonHovered;
 
+	/**
+	 * Triggered when the button is unhovered.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FOnButtonUnhoveredDynamicSignature OnButtonUnhovered;
 
