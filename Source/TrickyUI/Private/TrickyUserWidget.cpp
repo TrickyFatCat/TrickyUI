@@ -3,6 +3,8 @@
 
 #include "TrickyUserWidget.h"
 
+DEFINE_LOG_CATEGORY(LogTrickyUserWidget);
+
 void UTrickyUserWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
@@ -23,16 +25,26 @@ void UTrickyUserWidget::Hide()
 void UTrickyUserWidget::OnAnimationStarted_Implementation(const UWidgetAnimation* Animation)
 {
 	SetVisibility(ESlateVisibility::HitTestInvisible);
-	
+
 	if (Animation == ShowAnimation)
 	{
 		OnShowAnimationStarted.Broadcast();
 		HandleShowAnimationStarted();
+		
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+		PrintLog("Show Animation Started");
+#endif
+		
 	}
 	else if (Animation == HideAnimation)
 	{
 		OnHideAnimationStarted.Broadcast();
 		HandleHideAnimationStarted();
+		
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+		PrintLog("Hide Animation Started");
+#endif
+		
 	}
 }
 
@@ -43,17 +55,27 @@ void UTrickyUserWidget::OnAnimationFinished_Implementation(const UWidgetAnimatio
 		SetVisibility(OnShowFinishedVisibilityState);
 		OnShowAnimationFinished.Broadcast();
 		HandleShowAnimationFinished();
+		
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+		PrintLog("Show Animation Finished");
+#endif
+		
 	}
 	else if (Animation == HideAnimation)
 	{
 		SetVisibility(OnHideFinishedVisibilityState);
 		OnHideAnimationFinished.Broadcast();
 		HandleHideAnimationFinished();
+		
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+		PrintLog("Hide Animation Finished");
+#endif
+		
 	}
 }
 
 float UTrickyUserWidget::CalculateAnimationStartTime(const UWidgetAnimation* Animation,
-	const UWidgetAnimation* NewAnimation) const
+                                                     const UWidgetAnimation* NewAnimation) const
 {
 	if (!Animation || !NewAnimation)
 	{
@@ -62,6 +84,18 @@ float UTrickyUserWidget::CalculateAnimationStartTime(const UWidgetAnimation* Ani
 
 	const float AnimationEndTime = Animation->GetEndTime();
 	const float NewAnimationEndTime = NewAnimation->GetEndTime();
-	const float TargetTime = ((AnimationEndTime - GetAnimationCurrentTime(Animation)) / AnimationEndTime) * NewAnimationEndTime;
-	return TargetTime * static_cast<float>(IsAnimationPlaying(Animation));	
+	const float CurrentTime = GetAnimationCurrentTime(Animation);
+	const float TargetTime = ((AnimationEndTime - CurrentTime) / AnimationEndTime) * NewAnimationEndTime;
+	return TargetTime * static_cast<float>(IsAnimationPlaying(Animation));
 }
+
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+
+void UTrickyUserWidget::PrintLog(const FString& Message) const
+{
+	const FString WidgetName = GetDisplayLabel();
+	const FString LogMessage = FString::Printf(TEXT("Widget: %s | %s"), *WidgetName, *Message);
+	UE_LOG(LogTrickyUserWidget, Display, TEXT("%s"), *LogMessage);
+}
+
+#endif

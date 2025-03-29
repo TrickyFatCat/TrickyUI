@@ -7,6 +7,8 @@
 #include "Blueprint/UserWidget.h"
 #include "TrickyUserWidget.generated.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(LogTrickyUserWidget, Display, All);
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAnimationStartedDynamicSignature);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAnimationFinishedDynamicSignature);
@@ -71,4 +73,8 @@ protected:
 	virtual void OnAnimationFinished_Implementation(const UWidgetAnimation* Animation) override;
 
 	float CalculateAnimationStartTime(const UWidgetAnimation* Animation, const UWidgetAnimation* NewAnimation) const;
+
+#if WITH_EDITOR || !UE_BUILD_SHIPPING
+	void PrintLog(const FString& Message) const;
+#endif
 };
