@@ -14,7 +14,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAnimationStartedDynamicSignature);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAnimationFinishedDynamicSignature);
 
 /**
- * 
+ * An abstract widget class that extends UUserWidget to provide advanced animation functionality for show and hide animations.
  */
 UCLASS(Abstract)
 class TRICKYUI_API UTrickyUserWidget : public UUserWidget
@@ -24,27 +24,51 @@ class TRICKYUI_API UTrickyUserWidget : public UUserWidget
 public:
 	virtual void NativeOnInitialized() override;
 
+	/**
+	 * Called when show animation started.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FOnAnimationStartedDynamicSignature OnShowAnimationStarted;
 
+	/**
+	 * Called when show animation finished.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FOnAnimationFinishedDynamicSignature OnShowAnimationFinished;
 
+	/**
+	 * Called when hide animation started.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FOnAnimationStartedDynamicSignature OnHideAnimationStarted;
 
+	/**
+	 * Called when hide animation finished.
+	 */
 	UPROPERTY(BlueprintAssignable)
 	FOnAnimationFinishedDynamicSignature OnHideAnimationFinished;
 
+	/**
+	 * Determines the visibility state of the widget when show animation finished.
+	 */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "TrickyUserWidget")
 	ESlateVisibility OnShowFinishedVisibilityState  = ESlateVisibility::Visible;
 
+	/**
+	 * Determines the visibility state of the widget when show animation finished.
+	 */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "TrickyUserWidget")
 	ESlateVisibility OnHideFinishedVisibilityState  = ESlateVisibility::Hidden;
 
+	/**
+	 * Initiates show animation for the widget.
+	 */
 	UFUNCTION(BlueprintCallable, Category = "TrickyUserWidget")
 	void Show();
 
+	/**
+	 * Initiates hide animation for the widget.
+	 */
 	UFUNCTION(BlueprintCallable, Category = "TrickyUserWidget")
 	void Hide();
 
@@ -56,15 +80,27 @@ protected:
 	UPROPERTY(Transient, meta=(BindWidgetAnim))
 	TObjectPtr<UWidgetAnimation> HideAnimation = nullptr;
 
+	/**
+	 * Called when show animation starts playing.
+	 */
 	UFUNCTION(BlueprintImplementableEvent, Category = "TrickyUserWidget")
 	void HandleShowAnimationStarted();
 
+	/**
+	 * Called when show animation ends playing.
+	 */
 	UFUNCTION(BlueprintImplementableEvent, Category = "TrickyUserWidget")
 	void HandleShowAnimationFinished();
 
+	/**
+	 * Called when hide animation starts playing.
+	 */
 	UFUNCTION(BlueprintImplementableEvent, Category = "TrickyUserWidget")
 	void HandleHideAnimationStarted();
 
+	/**
+	 * Called when hide animation ends playing.
+	 */
 	UFUNCTION(BlueprintImplementableEvent, Category = "TrickyUserWidget")
 	void HandleHideAnimationFinished();
 
