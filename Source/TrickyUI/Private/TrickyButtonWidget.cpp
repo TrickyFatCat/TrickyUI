@@ -11,7 +11,7 @@ void UTrickyButtonWidget::NativeOnInitialized()
 
 	if (IsValid(Button_Main))
 	{
-		Button_Main->OnClicked.AddUniqueDynamic(this, &UTrickyButtonWidget::HandleButtenClicked);
+		Button_Main->OnClicked.AddUniqueDynamic(this, &UTrickyButtonWidget::HandleButtonClicked);
 		Button_Main->OnPressed.AddUniqueDynamic(this, &UTrickyButtonWidget::HandleButtonPressed);
 		Button_Main->OnReleased.AddUniqueDynamic(this, &UTrickyButtonWidget::HandleButtonReleased);
 		Button_Main->OnHovered.AddUniqueDynamic(this, &UTrickyButtonWidget::HandleButtonHovered);
@@ -19,7 +19,7 @@ void UTrickyButtonWidget::NativeOnInitialized()
 	}
 }
 
-void UTrickyButtonWidget::HandleButtenClicked()
+void UTrickyButtonWidget::HandleButtonClicked()
 {
 	OnButtonClicked.Broadcast(this);
 }

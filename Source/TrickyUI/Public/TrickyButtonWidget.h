@@ -50,7 +50,7 @@ protected:
 
 private:
 	UFUNCTION()
-	void HandleButtenClicked();
+	void HandleButtonClicked();
 
 	UFUNCTION()
 	void HandleButtonPressed();
