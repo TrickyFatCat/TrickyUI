@@ -3,7 +3,7 @@
 	"Version": 1,
 	"VersionName": "3.55.0",
 	"FriendlyName": "TrickyUI",
-	"Description": "",
+	"Description": "Provides enhanced user widgets with built-in animation support.",
 	"Category": "Other",
 	"CreatedBy": "Artyom \"Tricky_Fat_Cat\" Volkov",
 	"CreatedByURL": "",
